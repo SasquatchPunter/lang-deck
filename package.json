@@ -1,19 +1,22 @@
 {
-  "name": "lang-deck-generator",
+  "name": "lang-deck",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "index.js",
   "scripts": {
-    "test": "npm run test -w packages/speech"
+    "test": "npm run test -w packages/speech -w packages/utils"
   },
   "workspaces": [
     "./packages/*"
   ],
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "jest": "^30.3.0"
+    "jest": "^30.3.0",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": "^22.14.0"
   }
 }
