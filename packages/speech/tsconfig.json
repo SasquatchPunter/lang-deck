@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "noEmit": false,
+    "declarationDir": "types",
+    "rootDir": "src"
+  },
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*.js"],
+  "exclude": ["node_modules", "types", "**/*.test.js"]
+}

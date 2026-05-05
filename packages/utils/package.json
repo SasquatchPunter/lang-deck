@@ -6,10 +6,14 @@
   "author": "",
   "type": "commonjs",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "typegen": "tsc"
   },
   "exports": {
-    "./parser": "./src/parser.js"
+    "./parser": {
+      "default": "./src/parser.js",
+      "types": "./types/parser.d.ts"
+    }
   },
   "engines": {
     "node": "^22.14.0"

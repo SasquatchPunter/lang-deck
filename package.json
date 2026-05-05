@@ -6,13 +6,19 @@
   "author": "",
   "type": "commonjs",
   "scripts": {
-    "test": "npm run test -w packages/speech -w packages/utils"
+    "test:pkg:all": "npm run test -w packages/speech -w packages/utils",
+    "test:pkg:speech": "npm run test -w packages/speech",
+    "test:pkg:utils": "npm run test -w packages/utils",
+    "typegen:pkg:all": "npm run typegen -w packages/speech -w packages/utils",
+    "typegen:pkg:speech": "npm run typegen -w packages/speech",
+    "typegen:pkg:utils": "npm run typegen -w packages/utils"
   },
   "workspaces": [
     "./packages/*"
   ],
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "@types/node": "^25.6.0",
     "jest": "^30.3.0",
     "typescript": "^6.0.3"
   },

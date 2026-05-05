@@ -34,6 +34,8 @@ function readIndex(fileName) {
 
 /**
  * Serializes a numerical index to an index string
+ *
+ * @param {number} n
  */
 function getIndexString(n) {
   const s = String(n);
