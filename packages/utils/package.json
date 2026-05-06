@@ -22,8 +22,5 @@
   },
   "engines": {
     "node": "^22.14.0"
-  },
-  "dependencies": {
-    "rimraf": "^6.1.3"
   }
 }
