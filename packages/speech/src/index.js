@@ -1,1 +1,3 @@
-const parser = require("lang-deck-utils/parser");
+/** @typedef {import('./types.js').SpeechClient} SpeechClient */
+
+module.exports = {};
