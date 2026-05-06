@@ -1,5 +1,4 @@
 const slugify = require("slugify");
-const { AUDIO_ENCODING } = require("./config.js");
 const fs = require("node:fs/promises");
 
 /**
@@ -8,21 +7,6 @@ const fs = require("node:fs/promises");
  */
 function sanitizeFilename(filename) {
   return slugify(filename, { strict: true, lower: true });
-}
-
-/**
- * Gets file suffix based on `AUDIO_ENCODING`
- * @param {typeof AUDIO_ENCODING[keyof typeof AUDIO_ENCODING]} encoding
- */
-function getSuffix(encoding) {
-  switch (encoding) {
-    case "MP3":
-      return "mp3";
-    case "LINEAR16":
-      return "wav";
-    case "M4A":
-      return "m4a";
-  }
 }
 
 /** Digit length of the index prefix */
@@ -41,15 +25,17 @@ function removeIndex(fileName) {
 /**
  * Reads the numeric index from the filename.
  * @param {string} fileName
- * @returns {number} The parsed numeric index, or -1 if it's invalid or longer than 3 characters.
+ * @returns {number} The parsed numeric index, or -1 if there's no valid index prefix.
  */
 function readIndex(fileName) {
   const match = fileName.match(indexRegex);
-  return match === null ? -1 : parseInt(match[0].slice(0, -1));
+  return match === null ? -1 : parseInt(match[0].slice(0, -1), 10);
 }
 
 /**
  * Serializes a numerical index to an index string
+ *
+ * @param {number} n
  */
 function getIndexString(n) {
   const s = String(n);
@@ -70,6 +56,9 @@ async function createIndex(dirPath) {
 
   loadIndex();
 
+  /**
+   * Parses filenames in the directory and loads the current highest index for duplicate indexed files.
+   */
   function loadIndex() {
     for (const file of files) {
       const fileName = removeIndex(file);
@@ -77,7 +66,7 @@ async function createIndex(dirPath) {
       const currentIndex = index[fileName];
 
       if (currentIndex === undefined) {
-        index[fileName] = 0;
+        index[fileName] = fileIndex >= 0 ? fileIndex : 0;
       } else if (fileIndex > currentIndex) {
         index[fileName] = fileIndex;
       }
@@ -99,14 +88,14 @@ async function createIndex(dirPath) {
       return idx;
     }
 
-    return ++idx;
+    index[fileName] = ++idx;
+    return idx;
   }
 
   return { incrementIndex, getIndex };
 }
 
 module.exports = {
-  getSuffix,
   sanitizeFilename,
   removeIndex,
   readIndex,

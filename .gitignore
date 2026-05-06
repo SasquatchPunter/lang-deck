@@ -2,5 +2,7 @@ node_modules
 .DS_Store
 .env
 .env.*
-.agent
 .test
+
+# Ignore type artifacts
+**/types/**/*

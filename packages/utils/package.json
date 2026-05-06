@@ -1,0 +1,29 @@
+{
+  "name": "lang-deck-utils",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest",
+    "typegen": "tsc",
+    "typeclean": "rimraf types"
+  },
+  "exports": {
+    "./parser": {
+      "default": "./src/parser.js",
+      "types": "./types/parser.d.ts"
+    },
+    "./batch": {
+      "default": "./src/batch.js",
+      "types": "./types/batch.d.ts"
+    }
+  },
+  "engines": {
+    "node": "^22.14.0"
+  },
+  "dependencies": {
+    "rimraf": "^6.1.3"
+  }
+}

@@ -2,7 +2,7 @@ const { parseString, parseBuffer, parseFile } = require("../parser.js");
 const path = require("node:path");
 const fs = require("node:fs/promises");
 
-describe(parseString, () => {
+describe("parseString()", () => {
   test("parses an empty string into an empty array", () => {
     expect(parseString("")).toHaveLength(0);
   });
@@ -18,7 +18,7 @@ describe(parseString, () => {
   });
 });
 
-describe(parseBuffer, () => {
+describe("parseBuffer()", () => {
   test("parses an empty buffer into an empty array", () => {
     const buffer = Buffer.from("");
     expect(parseBuffer(buffer)).toHaveLength(0);
@@ -35,7 +35,7 @@ describe(parseBuffer, () => {
   });
 });
 
-describe(parseFile, () => {
+describe("parseFile()", () => {
   describe("parses a text file into an array", () => {
     test("using absolute path", async () => {
       jest
