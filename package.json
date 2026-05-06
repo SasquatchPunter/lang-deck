@@ -11,7 +11,10 @@
     "test:pkg:utils": "npm run test -w packages/utils",
     "typegen:pkg:all": "npm run typegen -w packages/speech -w packages/utils",
     "typegen:pkg:speech": "npm run typegen -w packages/speech",
-    "typegen:pkg:utils": "npm run typegen -w packages/utils"
+    "typegen:pkg:utils": "npm run typegen -w packages/utils",
+    "typeclean:pkg:all": "npm run typeclean -w packages/speech -w packages/utils",
+    "typeclean:pkg:speech": "npm run typeclean -w packages/speech",
+    "typeclean:pkg:utils": "npm run typeclean -w packages/utils"
   },
   "workspaces": [
     "./packages/*"

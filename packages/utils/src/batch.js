@@ -1,6 +1,10 @@
+/** @typedef {() => Promise<any>} Task */
+/** @typedef {Task[]} TaskQueue */
+/** @typedef {{ resolved: TaskQueue; rejected: TaskQueue; }} ProcessedTaskQueueResult */
+
 /**
- * Chunks HTTP requests from a queue.
- * @param {(() => Promise<any>)[]} queue
+ * Chunks tasks from a queue.
+ * @param {TaskQueue} queue
  * @param {number} length
  */
 function chunkTasks(queue, length) {
@@ -15,20 +19,23 @@ function chunkTasks(queue, length) {
 /**
  * Batches and concurrently processes a queue of tasks.
  *
- * Each task is a "runner" function returning a Promise. This is to hold off executing
- * the function passed to the return Promise until the task function is ready to be run.
+ * Each task is an async "runner" function returning a Promise.
  *
  * Processed tasks are removed from the queue.
  * Tasks whose promises reject are returned after the queue has been fully processed.
- * @param {(() => Promise<any>)[]} queue Queue of tasks to batch and process.
+ * @param {TaskQueue} queue Queue of tasks to batch and process.
  * @param {number} concurrent Number of tasks to run during every timeout window.
  * @param {number} timeoutMS Length of timeout period in milliseconds.
- * @returns {Promise<(() => Promise<any>)[]>} An array of rejected tasks.
+ * @returns {Promise<ProcessedTaskQueueResult>} An array of rejected tasks.
  */
 
 async function processTaskQueue(queue, concurrent, timeoutMS) {
-  /** @type {(() => Promise<any>)[]} */
-  const rejected = [];
+  /** @type {ProcessedTaskQueueResult} */
+  const result = {
+    resolved: [],
+    rejected: [],
+  };
+
   const loopDelayMS = 100;
   let pending = 0;
   let lastTimeout = 0;
@@ -42,9 +49,13 @@ async function processTaskQueue(queue, concurrent, timeoutMS) {
       lastTimeout = now;
 
       const chunk = chunkTasks(queue, concurrent).map((task) =>
-        task().catch(() => {
-          rejected.push(task);
-        }),
+        task()
+          .then(() => {
+            result.resolved.push(task);
+          })
+          .catch(() => {
+            result.rejected.push(task);
+          }),
       );
 
       pending++;
@@ -57,7 +68,7 @@ async function processTaskQueue(queue, concurrent, timeoutMS) {
     await delay(loopDelayMS);
   }
 
-  return rejected;
+  return result;
 }
 
 /**
