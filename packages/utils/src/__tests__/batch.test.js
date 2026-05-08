@@ -35,15 +35,21 @@ describe("processTaskQueue()", () => {
 
   test("drains a queue fully", async () => {
     const queue = [resolveTask, resolveTask, resolveTask];
-    const rejected = await processTaskQueue(queue, 1, 500);
+    const { rejected } = await processTaskQueue(queue, 1, 100);
     expect(queue).toHaveLength(0);
     expect(rejected).toHaveLength(0);
   });
 
   test("rejected tasks are returned", async () => {
     const queue = [resolveTask, rejectTask, resolveTask];
-    const rejected = await processTaskQueue(queue, 1, 500);
+    const { rejected } = await processTaskQueue(queue, 1, 100);
     expect(rejected).toHaveLength(1);
+  });
+
+  test("resolved tasks are returned", async () => {
+    const queue = [resolveTask, rejectTask, resolveTask];
+    const { resolved } = await processTaskQueue(queue, 1, 100);
+    expect(resolved).toHaveLength(2);
   });
 });
 

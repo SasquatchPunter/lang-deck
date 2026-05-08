@@ -17,19 +17,17 @@ function chunkTasks(queue, length) {
 }
 
 /**
- * Batches and concurrently processes a queue of tasks.
+ * Batches and concurrently processes a queue of async tasks using a simple runner scheduler.
  *
- * Each task is an async "runner" function returning a Promise.
+ * Tasks are popped from the queue and cached. Set `batchSize` and `batchInterval` parameters for time-windowed rate limiting.
  *
- * Processed tasks are removed from the queue.
- * Tasks whose promises reject are returned after the queue has been fully processed.
  * @param {TaskQueue} queue Queue of tasks to batch and process.
- * @param {number} concurrent Number of tasks to run during every timeout window.
- * @param {number} timeoutMS Length of timeout period in milliseconds.
- * @returns {Promise<ProcessedTaskQueueResult>} An array of rejected tasks.
+ * @param {number} batchSize Number of tasks to run in every batch.
+ * @param {number} batchInterval Milliseconds between batched task runs. Next batch will run regardless of how many batches are still pending.
+ * @returns {Promise<ProcessedTaskQueueResult>} An object containing the tasks that resolved, and the tasks that rejected.
  */
 
-async function processTaskQueue(queue, concurrent, timeoutMS) {
+async function processTaskQueue(queue, batchSize, batchInterval) {
   /** @type {ProcessedTaskQueueResult} */
   const result = {
     resolved: [],
@@ -45,10 +43,10 @@ async function processTaskQueue(queue, concurrent, timeoutMS) {
 
     const now = Date.now();
 
-    if (now - lastTimeout > timeoutMS) {
+    if (now - lastTimeout > batchInterval) {
       lastTimeout = now;
 
-      const chunk = chunkTasks(queue, concurrent).map((task) =>
+      const chunk = chunkTasks(queue, batchSize).map((task) =>
         task()
           .then(() => {
             result.resolved.push(task);
