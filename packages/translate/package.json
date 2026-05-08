@@ -1,0 +1,17 @@
+{
+  "name": "lang-deck-translate",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "typegen": "tsc",
+    "typeclean": "rimraf types"
+  },
+  "dependencies": {
+    "lang-deck-utils": "^1.0.0"
+  }
+}
