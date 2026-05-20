@@ -11,8 +11,7 @@
     "typeclean": "npm run typeclean -w packages/core"
   },
   "workspaces": [
-    "./packages/*",
-    "./lib/*"
+    "./packages/*"
   ],
   "devDependencies": {
     "@types/jest": "^30.0.0",
