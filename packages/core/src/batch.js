@@ -1,7 +1,3 @@
-/** @typedef {() => Promise<any>} Task */
-/** @typedef {Task[]} TaskQueue */
-/** @typedef {{ resolved: TaskQueue; rejected: TaskQueue; }} ProcessedTaskQueueResult */
-
 /**
  * Chunks tasks from a queue.
  * @param {TaskQueue} queue

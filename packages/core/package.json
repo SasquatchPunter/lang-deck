@@ -1,5 +1,5 @@
 {
-  "name": "lang-deck-translate",
+  "name": "lang-deck-core",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
@@ -12,6 +12,6 @@
     "typeclean": "rimraf types"
   },
   "dependencies": {
-    "lang-deck-utils": "^1.0.0"
+    "slugify": "^1.6.9"
   }
 }

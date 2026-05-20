@@ -5,6 +5,6 @@
     "rootDir": "src"
   },
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*.js"],
-  "exclude": ["node_modules", "types", "**/*.test.js"]
+  "include": ["src/**/*.js", "src/**/*.d.ts"],
+  "exclude": ["node_modules", "**/*.test.js"]
 }

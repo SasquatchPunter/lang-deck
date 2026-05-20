@@ -1,4 +1,4 @@
-const { parseString, parseBuffer, parseFile } = require("../parser.js");
+const { parseString, parseBuffer, parseFile } = require("../parse.js");
 const path = require("node:path");
 const fs = require("node:fs/promises");
 

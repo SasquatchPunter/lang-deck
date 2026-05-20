@@ -1,6 +1,3 @@
-/** @typedef {{ file: string; delimiter?: string; }} InputConfig */
-/** @typedef {{ dir?: string; prefix?: string; }} OutputConfig */
-
 /**
  * Initializes and returns a complete input config.
  * @param {InputConfig} config
