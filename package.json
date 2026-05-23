@@ -6,13 +6,10 @@
   "author": "",
   "type": "commonjs",
   "scripts": {
-    "test": "npm run test -w packages/core",
-    "typegen": "npm run typegen -w packages/core",
-    "typeclean": "npm run typeclean -w packages/core"
+    "test": "jest",
+    "typegen": "tsc",
+    "typeclean": "rimraf types"
   },
-  "workspaces": [
-    "./packages/*"
-  ],
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^25.6.0",
@@ -22,5 +19,8 @@
   },
   "engines": {
     "node": "^22.14.0"
+  },
+  "dependencies": {
+    "slugify": "^1.6.9"
   }
 }
