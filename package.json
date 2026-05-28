@@ -21,7 +21,6 @@
     "node": "^22.14.0"
   },
   "dependencies": {
-    "genanki-js": "^2.0.0",
     "slugify": "^1.6.9"
   }
 }
