@@ -4,4 +4,4 @@ node_modules
 .env.*
 
 # Ignore type artifacts
-**/types/**/*
+types/**/*
